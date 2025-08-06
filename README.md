@@ -3,6 +3,7 @@
 This repo showcases my solutions for the **#8WeekSQLChallenge**, written in **SQL Server**.
 
 Thanks [@DataWithDanny](https://github.com/DataWithDanny) for sharing this great learning resource! 👋🏻
+
 ---
 
 ## 📚 Table of Contents
