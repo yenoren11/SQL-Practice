@@ -1,18 +1,18 @@
 
---What is the total amount each customer spent at the restaurant?
+--1. What is the total amount each customer spent at the restaurant?
 SELECT CUSTOMER_ID, SUM(PRICE) AS TOTAL_AMOUNT
 FROM SALES
 JOIN MENU ON SALES.PRODUCT_ID = MENU.PRODUCT_ID
 GROUP BY CUSTOMER_ID
 GO
 
---How many days has each customer visited the restaurant?
+--2. How many days has each customer visited the restaurant?
 SELECT CUSTOMER_ID, COUNT(DISTINCT ORDER_DATE) AS NUMBER_OF_DAYS
 FROM SALES
 GROUP BY CUSTOMER_ID
 GO
 
---What was the first item from the menu purchased by each customer?
+--3. What was the first item from the menu purchased by each customer?
 SELECT CUSTOMER_ID, PRODUCT_NAME
 FROM SALES
 JOIN MENU ON SALES.PRODUCT_ID = MENU.PRODUCT_ID
@@ -36,7 +36,7 @@ FROM (
 WHERE RNK = 1
 GO
 
---What is the most purchased item on the menu and how many times was it purchased by all customers?
+--4. What is the most purchased item on the menu and how many times was it purchased by all customers?
 SELECT TOP 1 S.PRODUCT_ID, PRODUCT_NAME, COUNT(S.PRODUCT_ID) AS TIMES
 FROM SALES S
 JOIN MENU M ON S.PRODUCT_ID = M.PRODUCT_ID
@@ -44,7 +44,7 @@ GROUP BY S.PRODUCT_ID, PRODUCT_NAME
 ORDER BY TIMES DESC
 GO
 
---Which item was the most popular for each customer?
+--5. Which item was the most popular for each customer?
 WITH RANKED_ITEM AS (
 	SELECT S.CUSTOMER_ID, M.PRODUCT_NAME, COUNT(*) AS ORDER_COUNT,
 	ROW_NUMBER() OVER (
@@ -58,7 +58,7 @@ FROM RANKED_ITEM
 WHERE RNK = 1
 GO
 
---Which item was purchased first by the customer after they became a member?
+--6. Which item was purchased first by the customer after they became a member?
 SELECT S.CUSTOMER_ID, M.PRODUCT_NAME
 FROM SALES S
 JOIN MEMBERS MB ON S.CUSTOMER_ID = MB.CUSTOMER_ID
@@ -71,7 +71,7 @@ WHERE S.ORDER_DATE = (
 )
 GO
 
---Which item was purchased just before the customer became a member?
+--7. Which item was purchased just before the customer became a member?
 SELECT CUSTOMER_ID, PRODUCT_NAME
 FROM (
     SELECT S.CUSTOMER_ID, M.PRODUCT_NAME,
@@ -92,7 +92,7 @@ FROM (
 WHERE RN = 1
 GO
 
---What is the total items and amount spent for each member before they became a member?
+--8. What is the total items and amount spent for each member before they became a member?
 SELECT S.CUSTOMER_ID, COUNT(S.PRODUCT_ID) AS TOTAL_ITEMS, SUM(M.PRICE) AS AMOUNT
 FROM SALES S
 JOIN MEMBERS MB ON S.CUSTOMER_ID = MB.CUSTOMER_ID
@@ -101,7 +101,7 @@ WHERE S.ORDER_DATE < MB.JOIN_DATE
 GROUP BY S.CUSTOMER_ID
 GO
 
---If each $1 spent equates to 10 points and sushi has a 2x points multiplier - how many points would each customer have?
+--9. If each $1 spent equates to 10 points and sushi has a 2x points multiplier - how many points would each customer have?
 SELECT S.CUSTOMER_ID, SUM(CASE
 								WHEN M.PRODUCT_NAME = 'sushi' THEN M.PRICE * 10 * 2
 								ELSE M.PRICE * 10
@@ -112,7 +112,7 @@ JOIN MEMBERS MB ON S.CUSTOMER_ID = MB.CUSTOMER_ID
 GROUP BY S.CUSTOMER_ID
 GO
 
---In the first week after a customer joins the program (including their join date) they earn 2x points on all items, not just sushi - how many points do customer A and B have at the end of January?
+--10. In the first week after a customer joins the program (including their join date) they earn 2x points on all items, not just sushi - how many points do customer A and B have at the end of January?
 SELECT S.CUSTOMER_ID, SUM(CASE
 								WHEN S.ORDER_DATE BETWEEN MB.JOIN_DATE AND DATEADD(DAY, 6, MB.JOIN_DATE) THEN M.PRICE * 10 * 2
 								WHEN M.PRODUCT_NAME = 'sushi' THEN M.PRICE * 10 * 2
@@ -162,3 +162,4 @@ SELECT *,
 	   END AS RANKING
 FROM FILTERED_ORDERS
 GO
+
