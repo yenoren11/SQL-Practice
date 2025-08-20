@@ -1,5 +1,7 @@
 # 🍕 Case Study #2 - Pizza Runner
 
+## A. Pizza Metrics
+
 ## 🔹 Step 1: Data Cleaning
 
 ### 1. Create temporary table 'CUSTOMER_ORDERS_TEMP' after cleaning data of table 'CUSTOMER_ORDERS'
