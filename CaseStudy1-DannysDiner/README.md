@@ -266,3 +266,7 @@ FROM FILTERED_ORDERS
 | C           | 2021-01-01 | ramen        | 12    | N      | NULL    |
 | C           | 2021-01-01 | ramen        | 12    | N      | NULL    |
 | C           | 2021-01-07 | ramen        | 12    | N      | NULL    |
+
+---
+
+**Thanks a lot to [@DataWithDanny](https://8weeksqlchallenge.com/) for the inspiring SQL case studies!** 🎉
