@@ -3,7 +3,7 @@
 ## 📚 Table of Contents
 
 [🧩 Case Study Questions](#-case-study-questions)
-- [A. Pizza Metrics](#-a-pizza-metrics)
+- [A. Pizza Metrics](#a-pizza-metrics)
 - [B. Runner and Customer Experience](#b-runner-and-customer-experience)
 - [C. Ingredient Optimisation](#c-ingredient-optimisation)
 - [D. Pricing and Ratings](#d-pricing-and-ratings)
